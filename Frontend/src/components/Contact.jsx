@@ -24,7 +24,7 @@ export default function Contact() {
     return () => ctx.revert()
   }, [])
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault()
 
   const form = e.target
@@ -36,13 +36,16 @@ export default function Contact() {
   }
 
   try {
-    const response = await fetch('https://maha-portfolio-a7x7.onrender.com/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
+    const response = await fetch(
+      'https://maha-portfolio-a7x7.onrender.com/api/contact',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    )
 
     if (!response.ok) {
       throw new Error('Failed to send message')
@@ -56,7 +59,7 @@ export default function Contact() {
     }, 4000)
 
   } catch (error) {
-    console.error(error)
+    console.error('Contact form error:', error)
     alert('Failed to send message. Please try again.')
   }
 }
