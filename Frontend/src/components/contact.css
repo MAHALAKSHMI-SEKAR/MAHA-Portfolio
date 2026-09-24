@@ -1,0 +1,90 @@
+.contact {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 90px);
+  align-items: start;
+}
+
+.contact-links {
+  margin-top: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-links a {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--paper);
+  width: fit-content;
+  border-bottom: 1px solid rgba(246, 243, 255, 0.2);
+  padding-bottom: 4px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-links a:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.contact-form {
+  background: var(--ink-2);
+  border: 1px solid rgba(246, 243, 255, 0.12);
+  border-radius: 24px;
+  padding: clamp(24px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  color: var(--paper-dim);
+}
+
+.field input,
+.field textarea {
+  background: rgba(246, 243, 255, 0.04);
+  border: 1px solid rgba(246, 243, 255, 0.16);
+  border-radius: 12px;
+  padding: 13px 15px;
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  resize: vertical;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--magenta);
+  background: rgba(246, 243, 255, 0.07);
+}
+
+.contact-form .btn {
+  justify-content: center;
+  margin-top: 6px;
+  border: none;
+}
+
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}

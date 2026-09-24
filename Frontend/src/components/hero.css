@@ -1,0 +1,124 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 130px 0 90px;
+  overflow: hidden;
+}
+
+.hero-canvas {
+  position: absolute !important;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .hero-canvas {
+    right: -30%;
+    opacity: 0.6 !important;
+  }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0 0 26px;
+}
+
+.hero-line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-line span {
+  display: inline-block;
+  will-change: transform;
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: var(--paper-dim);
+  max-width: 54ch;
+  margin: 0 0 38px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 64px;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 36px;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.hero-stat-label {
+  font-size: 0.82rem;
+  color: var(--paper-dim);
+  max-width: 12ch;
+  line-height: 1.3;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  left: var(--edge);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--paper-dim);
+}
+
+.hero-scroll span {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(var(--paper-dim), transparent);
+  animation: scrollpulse 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollpulse {
+  0%, 100% { transform: scaleY(1); opacity: 0.6; }
+  50% { transform: scaleY(0.5); opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .hero-stats {
+    grid-template-columns: repeat(2, auto);
+    row-gap: 24px;
+  }
+  .hero-scroll {
+    display: none;
+  }
+}
