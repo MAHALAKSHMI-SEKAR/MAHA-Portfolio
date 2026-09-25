@@ -2,30 +2,71 @@ package com.backend.portfolio.controller;
 
 import com.backend.portfolio.dto.ContactRequest;
 import com.backend.portfolio.service.EmailService;
-import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/contact")
+@CrossOrigin(
+        origins = {
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "https://maha-portfolio-1p8tz3rmi-mahalakshmi-sekar.vercel.app"
+        }
+)
 public class ContactController {
 
-    private final EmailService emailService;
-
-    public ContactController(EmailService emailService) {
-        this.emailService = emailService;
-    }
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping
-    public ResponseEntity<?> handleContact(@Valid @RequestBody ContactRequest request) {
+    public ResponseEntity<String> sendMessage(
+            @RequestBody ContactRequest request
+    ) {
+
+        // Validate name
+        if (request.getName() == null ||
+                request.getName().trim().isEmpty()) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body("Name is required");
+        }
+
+        // Validate email
+        if (request.getEmail() == null ||
+                request.getEmail().trim().isEmpty()) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body("Email is required");
+        }
+
+        // Validate message
+        if (request.getMessage() == null ||
+                request.getMessage().trim().isEmpty()) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body("Message is required");
+        }
+
         try {
-            emailService.sendContactMessage(request);
-            return ResponseEntity.ok().body(new SuccessResponse("Message sent successfully"));
+
+            emailService.sendContactEmail(request);
+
+            return ResponseEntity
+                    .ok("Message sent successfully");
+
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new ErrorResponse("Failed to send message"));
+
+            e.printStackTrace();
+
+            return ResponseEntity
+                    .internalServerError()
+                    .body("Failed to send message");
         }
     }
-
-    record SuccessResponse(String message) {}
-    record ErrorResponse(String error) {}
 }
