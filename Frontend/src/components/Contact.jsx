@@ -37,7 +37,7 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL || 'https://your-backend-domain.com/api/contact'}` ,
+      `${import.meta.env.VITE_API_URL || 'https://maha-portfolio-a7x7.onrender.com/api/contact'}` ,
       {
         method: 'POST',
         headers: {
