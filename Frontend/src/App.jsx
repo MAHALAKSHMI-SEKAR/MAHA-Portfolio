@@ -29,6 +29,7 @@ export default function App() {
     <>
       <div className="scroll-progress" ref={progress} />
       <Cursor />
+      
       <Navbar />
       <main>
         <Hero />
