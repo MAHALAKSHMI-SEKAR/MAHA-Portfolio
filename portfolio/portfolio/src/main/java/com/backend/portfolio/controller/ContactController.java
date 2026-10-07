@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
         origins = {
                 "http://localhost:5173",
                 "http://localhost:3000",
-                "https://maha-portfolio-1p8tz3rmi-mahalakshmi-sekar.vercel.app"
+                "https://maha-portfolio-1p8tz3rmi-mahalakshmi-sekar.vercel.app",
+                "https://maha-portfolio-xi.vercel.app"
         }
 )
 public class ContactController {
