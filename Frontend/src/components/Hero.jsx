@@ -29,6 +29,11 @@ export default function Hero() {
 
       <Hero3D />
 
+      <div className="hero-mascot-note" aria-hidden="true">
+        <span className="mascot-note-sparkle">✦</span>
+        <span>your little coding buddy</span>
+      </div>
+
       <div className="container hero-inner">
         <p className="hero-fade eyebrow">Full Stack Developer · Chennai, India</p>
 

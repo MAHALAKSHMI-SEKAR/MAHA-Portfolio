@@ -15,10 +15,46 @@
   pointer-events: none;
 }
 
+.hero-mascot-note {
+  position: absolute;
+  z-index: 2;
+  right: clamp(28px, 8vw, 120px);
+  bottom: 19%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 16px;
+  border: 1px solid rgba(117, 64, 91, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 250, 245, 0.86);
+  box-shadow: 0 12px 32px rgba(74, 42, 33, 0.1);
+  color: #75405b;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  animation: buddy-bob 3.4s ease-in-out infinite;
+}
+
+.mascot-note-sparkle {
+  color: #d7652c;
+  font-size: 1rem;
+}
+
+@keyframes buddy-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 @media (max-width: 760px) {
   .hero-canvas {
     right: -30%;
     opacity: 0.6 !important;
+  }
+
+  .hero-mascot-note {
+    right: 6%;
+    bottom: 12%;
+    font-size: 0.72rem;
   }
 }
 

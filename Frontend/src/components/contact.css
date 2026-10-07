@@ -83,6 +83,27 @@
   border: none;
 }
 
+.contact-form-status {
+  min-height: 1.35em;
+  margin: 0;
+  color: var(--paper-dim);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.contact-form-status.is-success {
+  color: #28724f;
+}
+
+.contact-form-status.is-error {
+  color: #a43e32;
+}
+
+.contact-form .btn:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
+
 @media (max-width: 860px) {
   .contact-grid {
     grid-template-columns: 1fr;

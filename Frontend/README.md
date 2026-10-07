@@ -4,14 +4,14 @@ A bold, colorful, interactive developer portfolio built with **React + Vite**, *
 
 ## Sections
 
-- **Hero** — animated headline reveal + interactive 3D distorted blob (React Three Fiber)
+- **Hero** — animated headline reveal + interactive 3D mascot (React Three Fiber / Three.js)
 - **Work** — DineFlow, Nathan Lights, LearnLoop project showcase with tilt-on-hover cards
 - **About** — bio pulled from your real background
 - **Skills** — infinite marquee + grouped skill cards
 - **Experience** — timeline (Ethics Tech, NathanDynamix) + education & certifications
 - **Services** — what you offer, as 4 cards
 - **FAQ** — animated accordion
-- **Contact** — form (opens the visitor's mail client addressed to you) + direct links
+- **Contact** — form powered by EmailJS + direct links
 
 All copy is based on your resume — edit `src/data/content.js` to update anything (projects, experience, skills, contact info) without touching component code.
 
@@ -25,6 +25,18 @@ npm run preview    # preview the production build locally
 ```
 
 Requires Node.js 18+.
+
+## Contact form setup
+
+The contact form uses EmailJS so it can send directly from this static frontend without a Gmail app password. Create an EmailJS email service and template, then set these variables in Vercel's project settings (and in `Frontend/.env.local` for local development):
+
+```text
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+Use `{{name}}`, `{{email}}`, and `{{message}}` in the EmailJS template. Set the recipient to your portfolio email address. Redeploy Vercel after adding or changing the variables. The public key is intended for browser use; never put a private key or Gmail password in a `VITE_` variable.
 
 ## Project structure
 

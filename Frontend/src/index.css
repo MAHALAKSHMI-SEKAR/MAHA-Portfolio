@@ -223,10 +223,6 @@ button {
   max-width: min(780px, 52%);
 }
 
-.hero-canvas {
-  opacity: 0 !important;
-}
-
 .section:nth-of-type(even) {
   background-color: #fff1e5;
 }

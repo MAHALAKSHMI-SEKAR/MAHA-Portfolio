@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import emailjs from '@emailjs/browser'
 import { profile } from '../data/content.js'
 import './contact.css'
 
@@ -8,7 +9,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function Contact() {
   const root = useRef()
-  const [emailOpened, setEmailOpened] = useState(false)
+  const [sendState, setSendState] = useState('idle')
+  const [sendMessage, setSendMessage] = useState('')
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -24,16 +26,33 @@ export default function Contact() {
     return () => ctx.revert()
   }, [])
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault()
 
-  const form = e.target
-  const subject = `Portfolio contact from ${form.name.value}`
-  const body = `Name: ${form.name.value}\nEmail: ${form.email.value}\n\n${form.message.value}`
-  const mailto = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  const form = e.currentTarget
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
-  window.location.href = mailto
-  setEmailOpened(true)
+  if (!serviceId || !templateId || !publicKey) {
+    setSendState('error')
+    setSendMessage(`The contact form is not configured yet. Email me directly at ${profile.email}.`)
+    return
+  }
+
+  setSendState('sending')
+  setSendMessage('Sending your message…')
+
+  try {
+    await emailjs.sendForm(serviceId, templateId, form, { publicKey })
+    form.reset()
+    setSendState('success')
+    setSendMessage('Your message was sent. Thank you — I’ll get back to you soon!')
+  } catch (error) {
+    console.error('EmailJS contact form error:', error)
+    setSendState('error')
+    setSendMessage(`Your message could not be sent. Please try again or email ${profile.email} directly.`)
+  }
 }
 
   return (
@@ -47,7 +66,7 @@ const handleSubmit = (e) => {
           </h2>
           <p className="contact-reveal section-sub">
             Open to full-time roles, freelance builds and collaborations. Tell me what you&rsquo;re working on —
-            your email app will open with your message addressed to {profile.email}.
+            send me a message here, or reach me directly at {profile.email}.
           </p>
 
           <div className="contact-reveal contact-links">
@@ -75,8 +94,11 @@ const handleSubmit = (e) => {
             <label htmlFor="message">Message</label>
             <textarea id="message" name="message" rows={5} required placeholder="What are you building?" />
           </div>
-          <button type="submit" className="btn btn-solid">
-            {emailOpened ? 'Email app opened' : 'Continue in email app'}
+          <p className={`contact-form-status is-${sendState}`} role="status" aria-live="polite">
+            {sendMessage}
+          </p>
+          <button type="submit" className="btn btn-solid" disabled={sendState === 'sending'}>
+            {sendState === 'sending' ? 'Sending…' : sendState === 'success' ? 'Message sent' : 'Send message'}
           </button>
         </form>
       </div>
