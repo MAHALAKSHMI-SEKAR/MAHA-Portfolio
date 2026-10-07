@@ -28,7 +28,7 @@ Requires Node.js 18+.
 
 ## Contact form setup
 
-The contact form posts to the Spring Boot mail endpoint. The sender address is configured in `portfolio/portfolio/src/main/resources/application.properties`. Set `MAIL_PASSWORD` on the backend host to a Google App Password for that Gmail account. Keep the password out of source code and frontend settings.
+The contact form posts to the Spring Boot mail endpoint. The sender address is configured in `portfolio/portfolio/src/main/resources/application.properties`. For Render, add a Secret File named `mail-secrets.properties` containing `spring.mail.password=<new Google App Password>`. The backend loads it from `/etc/secrets/mail-secrets.properties`; never commit the password or put it in frontend code.
 
 ## Project structure
 

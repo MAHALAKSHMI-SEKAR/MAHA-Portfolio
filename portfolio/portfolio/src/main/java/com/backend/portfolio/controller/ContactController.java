@@ -28,50 +28,23 @@ public class ContactController {
     }
 
     @PostMapping
-    public ResponseEntity<String> sendMessage(
-            @RequestBody ContactRequest request
-    ) {
-
-        // Validate name
-        if (request.getName() == null ||
-                request.getName().trim().isEmpty()) {
-
-            return ResponseEntity
-                    .badRequest()
-                    .body("Name is required");
+    public ResponseEntity<String> sendMessage(@RequestBody ContactRequest request) {
+        if (request.getName() == null || request.getName().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Name is required");
         }
-
-        // Validate email
-        if (request.getEmail() == null ||
-                request.getEmail().trim().isEmpty()) {
-
-            return ResponseEntity
-                    .badRequest()
-                    .body("Email is required");
+        if (request.getEmail() == null || request.getEmail().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Email is required");
         }
-
-        // Validate message
-        if (request.getMessage() == null ||
-                request.getMessage().trim().isEmpty()) {
-
-            return ResponseEntity
-                    .badRequest()
-                    .body("Message is required");
+        if (request.getMessage() == null || request.getMessage().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Message is required");
         }
 
         try {
-
             emailService.sendContactEmail(request);
-
-            return ResponseEntity
-                    .ok("Message sent successfully");
-
+            return ResponseEntity.ok("Message sent successfully");
         } catch (Exception e) {
             logger.error("Contact email delivery failed", e);
-
-            return ResponseEntity
-                    .internalServerError()
-                    .body("Failed to send message");
+            return ResponseEntity.internalServerError().body("Failed to send message");
         }
     }
 }
