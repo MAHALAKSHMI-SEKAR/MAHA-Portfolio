@@ -1,7 +1,7 @@
 package com.backend.portfolio.controller;
 
 import com.backend.portfolio.dto.ContactRequest;
-import com.backend.portfolio.service.EmailService;
+import com.backend.portfolio.service.EmailServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class ContactController {
 
     @Autowired
-    private EmailService emailService;
+    private EmailServices emailService;
 
     @PostMapping
     public ResponseEntity<String> sendMessage(
