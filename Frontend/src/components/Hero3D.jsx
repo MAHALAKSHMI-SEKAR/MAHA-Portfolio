@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef } from 'react'
+import { Component, Suspense, useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Float, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
@@ -140,18 +140,61 @@ function Scene() {
   )
 }
 
+function MascotFallback() {
+  return (
+    <div className="hero-canvas-fallback" aria-hidden="true">
+      <div className="buddy-fallback">
+        <span className="buddy-ear buddy-ear-left" />
+        <span className="buddy-ear buddy-ear-right" />
+        <div className="buddy-face">
+          <span className="buddy-eye buddy-eye-left" />
+          <span className="buddy-eye buddy-eye-right" />
+          <span className="buddy-cheek buddy-cheek-left" />
+          <span className="buddy-cheek buddy-cheek-right" />
+          <span className="buddy-nose" />
+          <span className="buddy-smile" />
+        </div>
+        <div className="buddy-body">
+          <span className="buddy-collar" />
+          <span className="buddy-badge">✦</span>
+          <span className="buddy-paw buddy-paw-left" />
+          <span className="buddy-paw buddy-paw-right" />
+        </div>
+        <span className="buddy-sparkle buddy-sparkle-one">✦</span>
+        <span className="buddy-sparkle buddy-sparkle-two">✧</span>
+      </div>
+    </div>
+  )
+}
+
+class WebGLErrorBoundary extends Component {
+  state = { failed: false }
+
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children
+  }
+}
+
 export default function Hero3D() {
   return (
-    <Canvas
-      className="hero-canvas"
-      dpr={[1, 1.5]}
-      camera={{ position: [0, 0, 7], fov: 42 }}
-      gl={{ antialias: true, alpha: true }}
-      aria-hidden="true"
-    >
-      <Suspense fallback={null}>
-        <Scene />
-      </Suspense>
-    </Canvas>
+    <div className="hero-visual" aria-hidden="true">
+      <WebGLErrorBoundary fallback={<MascotFallback />}>
+        <Canvas
+          className="hero-canvas"
+          fallback={<MascotFallback />}
+          dpr={[1, 1.5]}
+          camera={{ position: [0, 0, 7], fov: 42 }}
+          gl={{ antialias: true, alpha: true, powerPreference: 'low-power' }}
+        >
+          <Suspense fallback={null}>
+            <Scene />
+          </Suspense>
+        </Canvas>
+      </WebGLErrorBoundary>
+    </div>
   )
 }

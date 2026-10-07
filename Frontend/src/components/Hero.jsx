@@ -13,7 +13,6 @@ export default function Hero() {
 
       tl.set('.hero-line span', { yPercent: 120 })
         .set('.hero-fade', { opacity: 0, y: 18 })
-        .to('.hero-canvas', { opacity: 1, duration: 1.2, ease: 'power2.out' }, 0.1)
         .to('.hero-line span', { yPercent: 0, duration: 1, stagger: 0.09 }, 0.25)
         .to('.hero-fade', { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 }, '-=0.5')
     }, root)

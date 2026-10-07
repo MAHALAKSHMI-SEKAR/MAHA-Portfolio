@@ -11,8 +11,192 @@
   position: absolute !important;
   inset: 0;
   z-index: 1;
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
+}
+
+.hero-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-canvas-fallback {
+  position: absolute;
+  top: 50%;
+  right: clamp(24px, 10vw, 150px);
+  width: clamp(250px, 32vw, 390px);
+  height: clamp(300px, 48vh, 440px);
+  transform: translateY(-50%);
+  animation: buddy-float 4s ease-in-out infinite;
+}
+
+.buddy-fallback {
+  position: absolute;
+  inset: 0;
+}
+
+.buddy-face {
+  position: absolute;
+  z-index: 2;
+  top: 15%;
+  left: 50%;
+  width: 66%;
+  height: 49%;
+  transform: translateX(-50%);
+  border-radius: 48% 48% 46% 46%;
+  background: #fff8f0;
+  box-shadow: inset -12px -10px 0 rgba(117, 64, 91, 0.08), 0 24px 44px rgba(79, 43, 31, 0.14);
+}
+
+.buddy-ear {
+  position: absolute;
+  z-index: 1;
+  top: 6%;
+  width: 28%;
+  height: 32%;
+  background: #fff8f0;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  filter: drop-shadow(0 8px 5px rgba(79, 43, 31, 0.1));
+}
+
+.buddy-ear::after {
+  content: '';
+  position: absolute;
+  inset: 25% 25% 8%;
+  background: #e97873;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.buddy-ear-left {
+  left: 16%;
+  transform: rotate(-19deg);
+}
+
+.buddy-ear-right {
+  right: 16%;
+  transform: rotate(19deg);
+}
+
+.buddy-eye,
+.buddy-cheek,
+.buddy-nose,
+.buddy-smile,
+.buddy-collar,
+.buddy-badge,
+.buddy-paw,
+.buddy-sparkle {
+  position: absolute;
+  display: block;
+}
+
+.buddy-eye {
+  top: 43%;
+  width: 7%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #35252a;
+  box-shadow: inset 2px 2px 0 #fff;
+}
+
+.buddy-eye-left { left: 29%; }
+.buddy-eye-right { right: 29%; }
+
+.buddy-cheek {
+  top: 60%;
+  width: 12%;
+  height: 6%;
+  border-radius: 50%;
+  background: rgba(231, 120, 115, 0.45);
+}
+
+.buddy-cheek-left { left: 15%; }
+.buddy-cheek-right { right: 15%; }
+
+.buddy-nose {
+  top: 59%;
+  left: 48%;
+  width: 5%;
+  aspect-ratio: 1.2;
+  border-radius: 50% 50% 55% 55%;
+  background: #d7655c;
+}
+
+.buddy-smile {
+  top: 63%;
+  left: 46%;
+  width: 8%;
+  height: 5%;
+  border-bottom: 2px solid #75405b;
+  border-radius: 0 0 50% 50%;
+}
+
+.buddy-body {
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  width: 54%;
+  height: 43%;
+  transform: translateX(-50%);
+  border-radius: 48% 48% 42% 42%;
+  background: linear-gradient(145deg, #f28a4e, #d7652c);
+  box-shadow: inset -12px -10px 0 rgba(117, 64, 91, 0.12), 0 24px 42px rgba(79, 43, 31, 0.12);
+}
+
+.buddy-collar {
+  top: 5%;
+  left: 18%;
+  width: 64%;
+  height: 14%;
+  border-radius: 50%;
+  background: #75405b;
+}
+
+.buddy-badge {
+  top: 38%;
+  right: 22%;
+  color: #ffe3a5;
+  font-size: 1.5rem;
+}
+
+.buddy-paw {
+  z-index: -1;
+  top: 28%;
+  width: 27%;
+  height: 52%;
+  border-radius: 999px;
+  background: #fff8f0;
+}
+
+.buddy-paw-left {
+  left: -18%;
+  transform: rotate(34deg);
+}
+
+.buddy-paw-right {
+  right: -18%;
+  top: 18%;
+  transform-origin: 50% 10%;
+  animation: buddy-wave 1.3s ease-in-out infinite alternate;
+}
+
+.buddy-sparkle {
+  color: #f3b64a;
+  font-size: 1.6rem;
+}
+
+.buddy-sparkle-one { top: 19%; right: 3%; }
+.buddy-sparkle-two { bottom: 28%; left: 2%; color: #75405b; }
+
+@keyframes buddy-float {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: -12px; }
+}
+
+@keyframes buddy-wave {
+  from { transform: rotate(26deg); }
+  to { transform: rotate(-34deg); }
 }
 
 .hero-mascot-note {
@@ -48,7 +232,13 @@
 @media (max-width: 760px) {
   .hero-canvas {
     right: -30%;
-    opacity: 0.6 !important;
+  }
+
+  .hero-canvas-fallback {
+    top: 68%;
+    right: 3%;
+    width: min(60vw, 310px);
+    height: min(40vh, 330px);
   }
 
   .hero-mascot-note {
