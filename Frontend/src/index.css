@@ -1,18 +1,18 @@
 :root {
-  --ink: #0b0620;
-  --ink-2: #140c2c;
-  --ink-3: #1d1440;
-  --paper: #f6f3ff;
-  --paper-dim: #b9b0e0;
-  --violet: #7c3aed;
-  --violet-2: #a78bfa;
-  --magenta: #ff3ea5;
-  --cyan: #22d3ee;
-  --amber: #ffb800;
+  --ink: #fffaf5;
+  --ink-2: #ffffff;
+  --ink-3: #fff1e5;
+  --paper: #241b17;
+  --paper-dim: #74665e;
+  --violet: #b44e24;
+  --violet-2: #75405b;
+  --magenta: #d7652c;
+  --cyan: #75405b;
+  --amber: #a96820;
 
-  --grad-primary: linear-gradient(120deg, var(--violet) 0%, var(--magenta) 50%, var(--amber) 100%);
-  --grad-cool: linear-gradient(120deg, var(--cyan) 0%, var(--violet) 100%);
-  --grad-text: linear-gradient(100deg, #ffb800, #ff3ea5 45%, #7c3aed 90%);
+  --grad-primary: linear-gradient(120deg, #df6c32 0%, #bf4b23 58%, #75405b 100%);
+  --grad-cool: linear-gradient(120deg, #75405b 0%, #b44e24 100%);
+  --grad-text: linear-gradient(100deg, #c95425, #a94328 55%, #75405b 100%);
 
   --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -22,7 +22,7 @@
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {
@@ -161,9 +161,9 @@ button {
 }
 
 .btn-outline {
-  border-color: rgba(246, 243, 255, 0.25);
+  border-color: rgba(50, 32, 23, 0.25);
   color: var(--paper);
-  background: rgba(246, 243, 255, 0.03);
+  background: rgba(50, 32, 23, 0.03);
 }
 
 .btn-outline:hover {
@@ -177,7 +177,7 @@ button {
   font-weight: 600;
   padding: 6px 12px;
   border-radius: 100px;
-  border: 1px solid rgba(246, 243, 255, 0.18);
+  border: 1px solid rgba(50, 32, 23, 0.18);
   color: var(--paper-dim);
   white-space: nowrap;
 }
@@ -186,8 +186,8 @@ button {
 .noise-grid {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(246, 243, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(246, 243, 255, 0.05) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(50, 32, 23, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(50, 32, 23, 0.05) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
   pointer-events: none;
@@ -212,4 +212,68 @@ button {
   opacity: 0.45;
   pointer-events: none;
   z-index: 0;
+}
+
+/* Warm ivory, burnt orange and plum palette */
+.hero {
+  background: linear-gradient(90deg, #fffaf5 0%, #fffaf5 54%, #e9783d 54%, #d96731 100%);
+}
+
+.hero-inner {
+  max-width: min(780px, 52%);
+}
+
+.hero-canvas {
+  opacity: 0 !important;
+}
+
+.section:nth-of-type(even) {
+  background-color: #fff1e5;
+}
+
+.nav-scrolled {
+  background: rgba(255, 250, 245, 0.9);
+  border-bottom-color: rgba(48, 32, 23, 0.1);
+}
+
+.nav-mobile {
+  background: rgba(255, 250, 245, 0.98);
+  border-bottom-color: rgba(48, 32, 23, 0.1);
+}
+
+.project-card,
+.skill-card,
+.edu-card,
+.contact-form {
+  box-shadow: 0 18px 48px -34px rgba(81, 46, 27, 0.35);
+}
+
+.project-card,
+.skill-card,
+.edu-card,
+.contact-form,
+.service-card {
+  border-color: rgba(70, 44, 29, 0.12);
+}
+
+.field input,
+.field textarea {
+  background: #fffaf5;
+  border-color: rgba(70, 44, 29, 0.18);
+  color: var(--paper);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #9a8c82;
+}
+
+@media (max-width: 760px) {
+  .hero {
+    background: linear-gradient(180deg, #fffaf5 0%, #fffaf5 76%, #f6b18c 100%);
+  }
+
+  .hero-inner {
+    max-width: 100%;
+  }
 }

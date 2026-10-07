@@ -23,8 +23,8 @@ export default function Hero() {
 
   return (
     <section id="top" className="hero" ref={root}>
-      <div className="glow-blob" style={{ width: 520, height: 520, top: '-10%', right: '-8%', background: '#7c3aed' }} />
-      <div className="glow-blob" style={{ width: 420, height: 420, bottom: '-14%', left: '-6%', background: '#22d3ee', opacity: 0.3 }} />
+      <div className="glow-blob" style={{ width: 520, height: 520, top: '-10%', right: '-8%', background: '#75405b', opacity: 0.16 }} />
+      <div className="glow-blob" style={{ width: 420, height: 420, bottom: '-14%', left: '-6%', background: '#e9783d', opacity: 0.13 }} />
       <div className="noise-grid" />
 
       <Hero3D />

@@ -25,7 +25,7 @@
   font-size: 1.05rem;
   color: var(--paper);
   width: fit-content;
-  border-bottom: 1px solid rgba(246, 243, 255, 0.2);
+  border-bottom: 1px solid rgba(50, 32, 23, 0.2);
   padding-bottom: 4px;
   transition: color 0.3s ease, border-color 0.3s ease;
 }
@@ -37,7 +37,7 @@
 
 .contact-form {
   background: var(--ink-2);
-  border: 1px solid rgba(246, 243, 255, 0.12);
+  border: 1px solid rgba(50, 32, 23, 0.12);
   border-radius: 24px;
   padding: clamp(24px, 3vw, 36px);
   display: flex;
@@ -59,8 +59,8 @@
 
 .field input,
 .field textarea {
-  background: rgba(246, 243, 255, 0.04);
-  border: 1px solid rgba(246, 243, 255, 0.16);
+  background: rgba(50, 32, 23, 0.04);
+  border: 1px solid rgba(50, 32, 23, 0.16);
   border-radius: 12px;
   padding: 13px 15px;
   color: var(--paper);
@@ -74,7 +74,7 @@
 .field textarea:focus {
   outline: none;
   border-color: var(--magenta);
-  background: rgba(246, 243, 255, 0.07);
+  background: rgba(50, 32, 23, 0.07);
 }
 
 .contact-form .btn {

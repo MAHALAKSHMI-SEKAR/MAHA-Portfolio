@@ -10,9 +10,9 @@
 }
 
 .nav-scrolled {
-  background: rgba(11, 6, 32, 0.75);
+  background: rgba(255, 250, 245, 0.9);
   backdrop-filter: blur(14px);
-  border-bottom-color: rgba(246, 243, 255, 0.1);
+  border-bottom-color: rgba(50, 32, 23, 0.1);
 }
 .nav-links button,
 .nav-mobile button,
@@ -100,7 +100,7 @@
   width: 40px;
   height: 40px;
   background: transparent;
-  border: 1px solid rgba(246, 243, 255, 0.2);
+  border: 1px solid rgba(50, 32, 23, 0.2);
   border-radius: 10px;
   flex-shrink: 0;
 }
@@ -127,9 +127,9 @@
   flex-direction: column;
   gap: 4px;
   padding: 12px var(--edge) 22px;
-  background: rgba(11, 6, 32, 0.97);
+  background: rgba(255, 250, 245, 0.98);
   backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(246, 243, 255, 0.1);
+  border-bottom: 1px solid rgba(50, 32, 23, 0.1);
 }
 
 .nav-mobile a {
@@ -138,7 +138,7 @@
   font-weight: 500;
   font-size: 1.05rem;
   color: var(--paper);
-  border-bottom: 1px solid rgba(246, 243, 255, 0.08);
+  border-bottom: 1px solid rgba(50, 32, 23, 0.08);
 }
 
 .nav-mobile .btn {

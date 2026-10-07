@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function Contact() {
   const root = useRef()
-  const [sent, setSent] = useState(false)
+  const [emailOpened, setEmailOpened] = useState(false)
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -24,49 +24,21 @@ export default function Contact() {
     return () => ctx.revert()
   }, [])
 
-const handleSubmit = async (e) => {
+const handleSubmit = (e) => {
   e.preventDefault()
 
   const form = e.target
+  const subject = `Portfolio contact from ${form.name.value}`
+  const body = `Name: ${form.name.value}\nEmail: ${form.email.value}\n\n${form.message.value}`
+  const mailto = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
-  const data = {
-    name: form.name.value,
-    email: form.email.value,
-    message: form.message.value,
-  }
-
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL || 'https://maha-portfolio-a7x7.onrender.com/api/contact'}` ,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-    )
-
-    if (!response.ok) {
-      throw new Error('Failed to send message')
-    }
-
-    setSent(true)
-    form.reset()
-
-    setTimeout(() => {
-      setSent(false)
-    }, 4000)
-
-  } catch (error) {
-    console.error('Contact form error:', error)
-    alert('Failed to send message. Please try again.')
-  }
+  window.location.href = mailto
+  setEmailOpened(true)
 }
 
   return (
     <section id="contact" className="section contact" ref={root}>
-      <div className="glow-blob" style={{ width: 460, height: 460, top: '10%', left: '50%', transform: 'translateX(-50%)', background: '#ff3ea5', opacity: 0.25 }} />
+      <div className="glow-blob" style={{ width: 460, height: 460, top: '10%', left: '50%', transform: 'translateX(-50%)', background: '#d7652c', opacity: 0.12 }} />
       <div className="container contact-grid">
         <div>
           <p className="contact-reveal eyebrow">Contact</p>
@@ -75,7 +47,7 @@ const handleSubmit = async (e) => {
           </h2>
           <p className="contact-reveal section-sub">
             Open to full-time roles, freelance builds and collaborations. Tell me what you&rsquo;re working on —
-            I&rsquo;ll get back to you at {profile.email}.
+            your email app will open with your message addressed to {profile.email}.
           </p>
 
           <div className="contact-reveal contact-links">
@@ -104,7 +76,7 @@ const handleSubmit = async (e) => {
             <textarea id="message" name="message" rows={5} required placeholder="What are you building?" />
           </div>
           <button type="submit" className="btn btn-solid">
-            {sent ? 'Message sent ✓' : 'Send message'}
+            {emailOpened ? 'Email app opened' : 'Continue in email app'}
           </button>
         </form>
       </div>

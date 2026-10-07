@@ -30,7 +30,7 @@
 .timeline-line {
   flex: 1;
   width: 1px;
-  background: linear-gradient(rgba(246, 243, 255, 0.3), transparent);
+  background: linear-gradient(rgba(50, 32, 23, 0.3), transparent);
   margin-top: 10px;
 }
 
@@ -99,7 +99,7 @@
 .edu-block {
   margin-top: clamp(50px, 8vw, 90px);
   padding-top: clamp(40px, 6vw, 70px);
-  border-top: 1px solid rgba(246, 243, 255, 0.12);
+  border-top: 1px solid rgba(50, 32, 23, 0.12);
 }
 
 .edu-heading {
@@ -116,7 +116,7 @@
 
 .edu-card {
   background: var(--ink-2);
-  border: 1px solid rgba(246, 243, 255, 0.1);
+  border: 1px solid rgba(50, 32, 23, 0.1);
   border-radius: 18px;
   padding: 24px;
 }
