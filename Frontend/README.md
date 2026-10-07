@@ -11,7 +11,7 @@ A bold, colorful, interactive developer portfolio built with **React + Vite**, *
 - **Experience** — timeline (Ethics Tech, NathanDynamix) + education & certifications
 - **Services** — what you offer, as 4 cards
 - **FAQ** — animated accordion
-- **Contact** — form powered by EmailJS + direct links
+- **Contact** — form posts to the Spring Boot mail endpoint + direct links
 
 All copy is based on your resume — edit `src/data/content.js` to update anything (projects, experience, skills, contact info) without touching component code.
 
@@ -28,15 +28,7 @@ Requires Node.js 18+.
 
 ## Contact form setup
 
-The contact form uses EmailJS so it can send directly from this static frontend without a Gmail app password. Create an EmailJS email service and template, then set these variables in Vercel's project settings (and in `Frontend/.env.local` for local development):
-
-```text
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
-```
-
-Use `{{name}}`, `{{email}}`, and `{{message}}` in the EmailJS template. Set the recipient to your portfolio email address. Redeploy Vercel after adding or changing the variables. The public key is intended for browser use; never put a private key or Gmail password in a `VITE_` variable.
+The contact form posts to the Spring Boot backend. Configure `MAIL_USERNAME` and `MAIL_PASSWORD` as environment variables in Render, then redeploy the backend. Do not place email credentials in frontend code or Vite variables.
 
 ## Project structure
 

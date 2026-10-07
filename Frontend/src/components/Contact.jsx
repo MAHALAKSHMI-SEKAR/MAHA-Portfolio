@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import emailjs from '@emailjs/browser'
 import { profile } from '../data/content.js'
 import './contact.css'
 
@@ -30,28 +29,33 @@ const handleSubmit = async (e) => {
   e.preventDefault()
 
   const form = e.currentTarget
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-
-  if (!serviceId || !templateId || !publicKey) {
-    setSendState('error')
-    setSendMessage(`The contact form is not configured yet. Email me directly at ${profile.email}.`)
-    return
-  }
-
+  const apiUrl = import.meta.env.VITE_API_URL || 'https://maha-portfolio-a7x7.onrender.com/api/contact'
   setSendState('sending')
   setSendMessage('Sending your message…')
 
   try {
-    await emailjs.sendForm(serviceId, templateId, form, { publicKey })
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value,
+      }),
+    })
+
+    if (!response.ok) {
+      const detail = await response.text()
+      throw new Error(detail || `Request failed (${response.status})`)
+    }
+
     form.reset()
     setSendState('success')
     setSendMessage('Your message was sent. Thank you — I’ll get back to you soon!')
   } catch (error) {
-    console.error('EmailJS contact form error:', error)
+    console.error('Contact form error:', error)
     setSendState('error')
-    setSendMessage(`Your message could not be sent. Please try again or email ${profile.email} directly.`)
+    setSendMessage(`Your message could not be sent${error.message ? `: ${error.message}` : ''}. Please try again or email ${profile.email} directly.`)
   }
 }
 
