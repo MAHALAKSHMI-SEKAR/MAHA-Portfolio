@@ -3,9 +3,10 @@ package com.backend.portfolio.controller;
 import com.backend.portfolio.dto.ContactRequest;
 import com.backend.portfolio.service.EmailServices;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/contact")
@@ -19,8 +20,12 @@ import org.springframework.web.bind.annotation.*;
 )
 public class ContactController {
 
-    @Autowired
-    private EmailServices emailService;
+    private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
+    private final EmailServices emailService;
+
+    public ContactController(EmailServices emailService) {
+        this.emailService = emailService;
+    }
 
     @PostMapping
     public ResponseEntity<String> sendMessage(
@@ -62,8 +67,7 @@ public class ContactController {
                     .ok("Message sent successfully");
 
         } catch (Exception e) {
-
-            e.printStackTrace();
+            logger.error("Contact email delivery failed", e);
 
             return ResponseEntity
                     .internalServerError()

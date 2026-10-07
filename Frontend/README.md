@@ -28,7 +28,7 @@ Requires Node.js 18+.
 
 ## Contact form setup
 
-The contact form posts to the Spring Boot backend. Configure `MAIL_USERNAME` and `MAIL_PASSWORD` as environment variables in Render, then redeploy the backend. Do not place email credentials in frontend code or Vite variables.
+The contact form posts to the Spring Boot mail endpoint. The sender address is configured in `portfolio/portfolio/src/main/resources/application.properties`. Set `MAIL_PASSWORD` on the backend host to a Google App Password for that Gmail account. Keep the password out of source code and frontend settings.
 
 ## Project structure
 

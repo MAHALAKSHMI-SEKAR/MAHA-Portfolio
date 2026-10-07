@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import Hero3D from './Hero3D.jsx'
-import { profile, stats } from '../data/content.js'
+import { profile } from '../data/content.js'
 import './hero.css'
 
 export default function Hero() {
@@ -28,9 +28,9 @@ export default function Hero() {
 
       <Hero3D />
 
-      <div className="hero-mascot-note" aria-hidden="true">
-        <span className="mascot-note-sparkle">✦</span>
-        <span>your little coding buddy</span>
+      <div className="hero-art-caption" aria-hidden="true">
+        <span>01</span>
+        <span>Digital craft</span>
       </div>
 
       <div className="container hero-inner">
@@ -59,14 +59,6 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* <div className="hero-fade hero-stats">
-          {stats.map((s) => (
-            <div className="hero-stat" key={s.label}>
-              <span className="hero-stat-value">{s.value}</span>
-              <span className="hero-stat-label">{s.label}</span>
-            </div>
-          ))}
-        </div> */}
       </div>
 
       <div className="hero-scroll hero-fade" aria-hidden="true">
