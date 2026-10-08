@@ -17,10 +17,14 @@
 
 .hero-canvas {
   position: absolute !important;
-  inset: 0;
+  top: 0;
+  right: 0;
+  width: 56% !important;
+  height: 100% !important;
   z-index: 1;
   opacity: 1;
-  pointer-events: none;
+  pointer-events: auto;
+  touch-action: none;
 }
 
 .hero-canvas-fallback {
@@ -119,6 +123,29 @@
   text-transform: uppercase;
 }
 
+.hero-game-hud {
+  position: absolute;
+  z-index: 2;
+  right: clamp(28px, 8vw, 120px);
+  top: 18%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  color: #56394c;
+  background: rgba(255, 250, 245, 0.76);
+  border: 1px solid rgba(117, 64, 91, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 12px 34px rgba(84, 45, 61, 0.1);
+  backdrop-filter: blur(12px);
+  font: 600 0.73rem var(--font-display);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.hero-game-hud strong { color: #bd582e; font-weight: 700; }
+.hero-game-dot { width: 8px; height: 8px; border-radius: 50%; background: #e9783d; box-shadow: 0 0 0 4px rgba(233, 120, 61, 0.14); }
+
 .hero-art-caption span:first-child {
   color: #fff0cf;
 }
@@ -209,6 +236,10 @@
     right: -7%;
     width: min(74vw, 350px);
   }
+
+  .hero-canvas { top: 42%; right: 0; width: 100% !important; height: 58% !important; }
+
+  .hero-game-hud { top: 46%; right: 7%; }
 
   .hero-art-caption {
     right: 6%;

@@ -99,6 +99,15 @@
   color: #a43e32;
 }
 
+.contact-fallback-link {
+  width: fit-content;
+  margin-top: -12px;
+  color: #75405b;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .contact-form .btn:disabled {
   cursor: wait;
   opacity: 0.75;

@@ -11,11 +11,10 @@ import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api/contact")
 @CrossOrigin(
-        origins = {
+        originPatterns = {
                 "http://localhost:5173",
                 "http://localhost:3000",
-                "https://maha-portfolio-1p8tz3rmi-mahalakshmi-sekar.vercel.app",
-                "https://maha-portfolio-xi.vercel.app"
+                "https://maha-portfolio-*.vercel.app"
         }
 )
 public class ContactController {
@@ -44,7 +43,7 @@ public class ContactController {
             return ResponseEntity.ok("Message sent successfully");
         } catch (Exception e) {
             logger.error("Contact email delivery failed", e);
-            return ResponseEntity.internalServerError().body("Failed to send message");
+            return ResponseEntity.internalServerError().body("Email delivery failed. Please use the direct email link instead.");
         }
     }
 }
