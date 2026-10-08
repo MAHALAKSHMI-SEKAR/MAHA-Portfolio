@@ -2,48 +2,36 @@ package com.backend.portfolio.controller;
 
 import com.backend.portfolio.dto.ContactRequest;
 import com.backend.portfolio.service.EmailServices;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.mail.MailException;
 
 @RestController
 @RequestMapping("/api/contact")
-@CrossOrigin(
-        originPatterns = {
-                "http://localhost:5173",
-                "http://localhost:3000",
-                "https://maha-portfolio-*.vercel.app"
-        }
-)
+@CrossOrigin(originPatterns = {"http://localhost:5173", "http://localhost:3000", "https://*.vercel.app"})
 public class ContactController {
-
     private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
-    private final EmailServices emailService;
+    private final EmailServices emailServices;
 
-    public ContactController(EmailServices emailService) {
-        this.emailService = emailService;
+    public ContactController(EmailServices emailServices) {
+        this.emailServices = emailServices;
     }
 
     @PostMapping
-    public ResponseEntity<String> sendMessage(@RequestBody ContactRequest request) {
-        if (request.getName() == null || request.getName().trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("Name is required");
-        }
-        if (request.getEmail() == null || request.getEmail().trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("Email is required");
-        }
-        if (request.getMessage() == null || request.getMessage().trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("Message is required");
-        }
-
+    public ResponseEntity<String> sendMessage(@Valid @RequestBody ContactRequest request) {
         try {
-            emailService.sendContactEmail(request);
+            emailServices.sendContactEmail(request);
             return ResponseEntity.ok("Message sent successfully");
-        } catch (Exception e) {
-            logger.error("Contact email delivery failed", e);
-            return ResponseEntity.internalServerError().body("Email delivery failed. Please use the direct email link instead.");
+        } catch (MailException exception) {
+            logger.error("Portfolio contact email delivery failed", exception);
+            return ResponseEntity.internalServerError().body("Email delivery failed. Check the backend SMTP configuration and logs.");
         }
     }
 }
