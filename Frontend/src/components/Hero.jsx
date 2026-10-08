@@ -26,9 +26,10 @@ export default function Hero() {
 
       <div className="container hero-layout">
         <div className="hero-inner">
-          <p className="hero-fade eyebrow">Full Stack Developer · Chennai, India</p>
+          <p className="hero-fade eyebrow">Full Stack Developer <span aria-hidden="true">&middot;</span> Chennai, India</p>
           <h1 className="hero-title">
-            <span className="hero-line"><span>Hi, I&rsquo;m Mahalakshmi —</span></span>
+            <span className="hero-line"><span>Hi, I&rsquo;m</span></span>
+            <span className="hero-line"><span>Mahalakshmi <span className="hero-dash">&mdash;</span></span></span>
             <span className="hero-line"><span className="grad-text">I build things</span></span>
             <span className="hero-line"><span>that ship.</span></span>
           </h1>

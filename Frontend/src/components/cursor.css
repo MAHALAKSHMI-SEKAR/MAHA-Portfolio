@@ -15,11 +15,25 @@ body.has-custom-cursor .cursor-ring {
   display: block;
 }
 
+body.has-custom-cursor.has-native-cursor .cursor-dot,
+body.has-custom-cursor.has-native-cursor .cursor-ring {
+  display: none;
+}
+
 body.has-custom-cursor,
 body.has-custom-cursor a,
 body.has-custom-cursor button {
   cursor: none;
 }
+
+body.has-custom-cursor.has-native-cursor,
+body.has-custom-cursor.has-native-cursor a,
+body.has-custom-cursor.has-native-cursor button {
+  cursor: auto;
+}
+
+body.has-custom-cursor.has-native-cursor .stack-game-stage { cursor: crosshair; }
+body.has-custom-cursor.has-native-cursor .stack-game-panel button { cursor: pointer; }
 
 .cursor-dot {
   width: 7px;

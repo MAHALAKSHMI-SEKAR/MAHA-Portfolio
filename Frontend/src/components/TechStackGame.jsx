@@ -10,6 +10,7 @@ const BASE_Y = -1.72
 const BASE_HEIGHT = 0.46
 const CRANE_Y = 2.02
 const START_SCREEN_Y = 1.48
+const MIN_BLOCK_WIDTH = 0.9
 const MILESTONES = { 10: 'BACKEND UNLOCKED', 20: 'FULL STACK MODE', 30: 'AI MODE ACTIVATED', 50: 'PRODUCTION READY' }
 
 const pickTechnology = () => TECHNOLOGIES[Math.floor(Math.random() * TECHNOLOGIES.length)]
@@ -29,7 +30,7 @@ function TechBlock({ label, color, width, height = BLOCK_HEIGHT, position, newes
     const bump = elapsed < 0.28 ? 1 + Math.sin((elapsed / 0.28) * Math.PI) * 0.12 : 1
     mesh.current.scale.y = bump
   })
-  const fontSize = Math.min(0.18, width / Math.max(9, label.length * 4.5))
+  const fontSize = Math.min(0.18, Math.max(0.1, width / (label.length * 0.72)))
   return (
     <group position={position}>
       <RoundedBox ref={mesh} args={[width, height, 0.38]} radius={0.055} smoothness={3} castShadow receiveShadow>
@@ -168,7 +169,9 @@ function GameScene({ score, phase, tower, label, blockWidth, color, resetKey, li
       if (hook.current) hook.current.position.y = hookY
     }
     if (blockMesh.current) {
-      blockMesh.current.position.set(liveX.current, activeY.current - cameraShift, 0.05)
+      // The block is inside the camera-following group, so apply the world Y
+      // position here and let that parent apply cameraShift exactly once.
+      blockMesh.current.position.set(liveX.current, activeY.current, 0.05)
     }
   })
 
@@ -190,7 +193,6 @@ function GameScene({ score, phase, tower, label, blockWidth, color, resetKey, li
         <group ref={blockMesh}>
           <TechBlock label={label} color={color} width={blockWidth} position={[0, 0, 0]} />
         </group>
-        {phase === 'moving' && <Text position={[0, 1.05, 0]} fontSize={0.12} color="#876c5d" anchorX="center" anchorY="middle">TAP DROP WHEN THE BLOCK LINES UP</Text>}
       </group>
       <mesh position={[0, -2.07, -0.5]} receiveShadow>
         <boxGeometry args={[viewport.width, 0.14, 1]} />
@@ -261,17 +263,19 @@ export default function TechStackGame() {
       setPhase('missed')
       return
     }
+    // Preserve a readable minimum width so long runs stay playable.
+    const playableWidth = Math.max(MIN_BLOCK_WIDTH, overlap)
     const nextBlock = {
       id: nextScore,
       label,
       color,
-      width: overlap,
+      width: playableWidth,
       x: (left + right) / 2,
       y: BASE_Y + BASE_HEIGHT / 2 + (score + 0.5) * BLOCK_HEIGHT,
     }
     setTower((current) => [...current, nextBlock].slice(-10))
     setScore(nextScore)
-    setBlockWidth(overlap)
+    setBlockWidth(playableWidth)
     setLabel(pickTechnology())
     setPhase('moving')
     const nextCameraShift = Math.max(0, BASE_Y + BASE_HEIGHT / 2 + (nextScore + 0.5) * BLOCK_HEIGHT - 0.25)

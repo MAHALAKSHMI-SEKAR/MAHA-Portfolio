@@ -28,7 +28,7 @@ Requires Node.js 18+.
 
 ## Contact form setup
 
-The contact form posts to the Spring Boot mail endpoint. SMTP delivery needs a Gmail App Password on the backend: set `SPRING_MAIL_PASSWORD` in Render's environment, or provide a Secret File named `mail-secrets.properties` with `spring.mail.password=<Google App Password>` mounted at `/etc/secrets/mail-secrets.properties`. Never commit the password or put it in frontend code. The frontend can use `VITE_API_URL` to point at the deployed API; when delivery fails, it offers a prefilled email fallback.
+The contact form posts to the Spring Boot backend, which sends through the Resend HTTPS API. Set `RESEND_API_KEY` in Render's backend environment. The default sender is Resend's `onboarding@resend.dev` test sender; for production, verify a domain in Resend and set `RESEND_FROM_EMAIL` to an address on that domain. `PORTFOLIO_CONTACT_RECIPIENT` defaults to the portfolio email. Keep the API key out of source control and frontend variables. The frontend can use `VITE_API_URL` to point at the deployed API; when delivery fails, it offers a prefilled email fallback.
 
 ## Project structure
 

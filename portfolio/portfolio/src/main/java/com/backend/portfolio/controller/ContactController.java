@@ -1,6 +1,7 @@
 package com.backend.portfolio.controller;
 
 import com.backend.portfolio.dto.ContactRequest;
+import com.backend.portfolio.service.EmailDeliveryException;
 import com.backend.portfolio.service.EmailServices;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.mail.MailException;
 
 @RestController
 @RequestMapping("/api/contact")
@@ -29,9 +29,9 @@ public class ContactController {
         try {
             emailServices.sendContactEmail(request);
             return ResponseEntity.ok("Message sent successfully");
-        } catch (MailException exception) {
-            logger.error("Portfolio contact email delivery failed", exception);
-            return ResponseEntity.internalServerError().body("Email delivery failed. Check the backend SMTP configuration and logs.");
+        } catch (EmailDeliveryException exception) {
+            logger.error("Portfolio contact email delivery failed: {}", exception.getMessage(), exception);
+            return ResponseEntity.status(exception.getStatus()).body(exception.getPublicMessage());
         }
     }
 }

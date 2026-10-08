@@ -214,14 +214,7 @@ button {
   z-index: 0;
 }
 
-/* Warm ivory, burnt orange and plum palette */
-.hero {
-  background: linear-gradient(90deg, #fffaf5 0%, #fffaf5 54%, #e9783d 54%, #d96731 100%);
-}
-
-.hero-inner {
-  max-width: min(780px, 52%);
-}
+/* Hero-specific layout and color live in components/hero.css. */
 
 .section:nth-of-type(even) {
   background-color: #fff1e5;
@@ -262,14 +255,4 @@ button {
 .field input::placeholder,
 .field textarea::placeholder {
   color: #9a8c82;
-}
-
-@media (max-width: 760px) {
-  .hero {
-    background: linear-gradient(180deg, #fffaf5 0%, #fffaf5 76%, #f6b18c 100%);
-  }
-
-  .hero-inner {
-    max-width: 100%;
-  }
 }

@@ -13,6 +13,8 @@ export default function Cursor() {
     const ringPos = { ...pos }
 
     const onMove = (e) => {
+      const overGame = Boolean(e.target.closest('.stack-game-panel'))
+      document.body.classList.toggle('has-native-cursor', overGame)
       pos.x = e.clientX
       pos.y = e.clientY
       gsap.set(dot.current, { x: pos.x, y: pos.y })
@@ -48,6 +50,7 @@ export default function Cursor() {
       document.removeEventListener('pointerout', onOut)
       gsap.ticker.remove(ticker)
       document.body.classList.remove('has-custom-cursor')
+      document.body.classList.remove('has-native-cursor')
     }
   }, [])
 
