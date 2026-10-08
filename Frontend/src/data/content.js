@@ -8,8 +8,7 @@ export const profile = {
   linkedin: 'https://linkedin.com/in/mahalakshmi-sekar-8b1725313',
   github: 'https://github.com/MAHALAKSHMI-SEKAR',
   tagline: 'I build full-stack products that ship.',
-  summary:
-    "Full stack developer with 1+ year building web and mobile products end to end — React interfaces, Spring Boot APIs, MySQL data, and AI features wired in with the ChatGPT and Claude APIs. I like taking a feature from a blank file to something real people click on.",
+  summary: 'I build thoughtful, useful digital experiences.',
 }
 
 export const stats = [

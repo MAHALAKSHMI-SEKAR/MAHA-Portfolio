@@ -12,7 +12,7 @@
 
   --grad-primary: linear-gradient(120deg, #df6c32 0%, #bf4b23 58%, #75405b 100%);
   --grad-cool: linear-gradient(120deg, #75405b 0%, #b44e24 100%);
-  --grad-text: linear-gradient(100deg, #c95425, #a94328 55%, #75405b 100%);
+  --grad-text: linear-gradient(100deg, #ed7133 0%, #d6532b 100%);
 
   --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
