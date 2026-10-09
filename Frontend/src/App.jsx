@@ -11,7 +11,7 @@ import Services from './components/Services.jsx'
 import FAQ from './components/FAQ.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
-
+import AIAssistant from './components/AIAssistant.jsx'
 export default function App() {
   const progress = useRef()
 
@@ -42,6 +42,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <AIAssistant />
     </>
   )
 }
