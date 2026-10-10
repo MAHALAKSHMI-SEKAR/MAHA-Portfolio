@@ -13,15 +13,19 @@ export default function AIAssistant() {
         setLoading(true);
 
         try {
-            const response = await fetch('https://maha-portfolio-a7x7.onrender.com/api/ai', {
+            const apiUrl = import.meta.env.VITE_AI_API_URL || 'https://maha-portfolio-a7x7.onrender.com/api/ai/chat';
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ message: inputMessage }),
+                // Render may need a moment to wake the backend on the first request.
+                signal: AbortSignal.timeout(60000),
             });
             if (!response.ok) {
-                throw new Error('Failed to get AI response');
+                const detail = await response.text();
+                throw new Error(detail || `AI server returned ${response.status}.`);
             }
 
             const reply = await response.text();
@@ -31,7 +35,9 @@ export default function AIAssistant() {
             console.error('AI assistant error:', error);
             setmessage((previous) => [
                 ...previous,
-                'Sorry, I could not connect to the AI. Please try again.'
+                error.name === 'TimeoutError'
+                    ? 'The AI is taking longer than expected. Please try again in a moment.'
+                    : 'Sorry, I could not connect to the AI. Please try again in a moment.'
             ]);
         } finally {
             setLoading(false);
