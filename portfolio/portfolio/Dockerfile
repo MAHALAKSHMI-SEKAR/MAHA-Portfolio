@@ -3,10 +3,11 @@ FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 COPY pom.xml .
+COPY maven-settings.xml ./maven-settings.xml
 COPY src ./src
 
 RUN for attempt in 1 2 3 4 5; do \
-      if mvn -B -ntp clean package -DskipTests > /tmp/mvn-build.log 2>&1; then \
+      if mvn -s maven-settings.xml -B -ntp clean package -DskipTests > /tmp/mvn-build.log 2>&1; then \
         cat /tmp/mvn-build.log; exit 0; \
       else \
         status=$?; cat /tmp/mvn-build.log; \
