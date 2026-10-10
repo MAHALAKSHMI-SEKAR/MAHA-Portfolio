@@ -1,6 +1,20 @@
 
 import React, { useState } from 'react';
+import { profile, stats, skills, experience, education, certifications, projects, services, faqs } from '../data/content.js';
 import './AIAssistant.css';
+
+const portfolioContext = JSON.stringify({
+    profile,
+    stats,
+    skills,
+    experience,
+    education,
+    certifications,
+    projects: projects.map(({ color, glow, ...project }) => project),
+    services,
+    faqs,
+});
+
 export default function AIAssistant() {
     const [status, setStatus] = useState(false);
     const [message, setmessage] = useState([]);
@@ -19,12 +33,19 @@ export default function AIAssistant() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message: inputMessage }),
+                body: JSON.stringify({ message: inputMessage, context: portfolioContext }),
                 // Render may need a moment to wake the backend on the first request.
                 signal: AbortSignal.timeout(60000),
             });
             if (!response.ok) {
-                const detail = await response.text();
+                const responseText = await response.text();
+                let detail = responseText;
+                try {
+                    const errorBody = JSON.parse(responseText);
+                    detail = errorBody.message || errorBody.error || '';
+                } catch {
+                    // The backend may return a plain-text error message.
+                }
                 throw new Error(detail || `AI server returned ${response.status}.`);
             }
 
@@ -37,7 +58,9 @@ export default function AIAssistant() {
                 ...previous,
                 error.name === 'TimeoutError'
                     ? 'The AI is taking longer than expected. Please try again in a moment.'
-                    : 'Sorry, I could not connect to the AI. Please try again in a moment.'
+                    : error.message && error.message !== 'Failed to fetch'
+                        ? error.message
+                        : 'Sorry, I could not connect to the AI. Please try again in a moment.'
             ]);
         } finally {
             setLoading(false);
